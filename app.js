@@ -11,7 +11,7 @@ function initNavigation() {
   window.addEventListener('scroll', update, { passive: true }); update();
 }
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const CONFIG = { revealDuration: 0.85, loaderTimeout: 1800, desktop: 1024 };
+const CONFIG = { revealDuration: 0.85, loaderTimeout: 1800 };
 
 async function initPreloader() {
   const loader = document.querySelector('.preloader');
@@ -22,9 +22,11 @@ async function initPreloader() {
   loader.hidden = true;
 }
 
-function initHeroAnimations() {
-  gsap.from('.hero-enter', { opacity: 0, y: 24, duration: 1, stagger: 0.12, ease: 'power2.out', clearProps: 'all' });
-  gsap.from('.hero-photo', { opacity: 0, scale: 0.96, duration: 1.4, ease: 'power2.out', clearProps: 'all' });
+function initHeroAnimations(mm) {
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    gsap.from('.hero-enter', { opacity: 0, y: 24, duration: 1, stagger: 0.12, ease: 'power2.out', clearProps: 'all' });
+    gsap.from('.hero-photo', { opacity: 0, scale: 0.96, duration: 1.4, ease: 'power2.out', clearProps: 'all' });
+  });
 }
 
 function initEditorialMotion() {
@@ -43,22 +45,52 @@ function initEditorialMotion() {
     gsap.to('.pack-small', { y: -45, rotation: 2, ease: 'none', scrollTrigger: { trigger: '.packaging', start: 'top bottom', end: 'bottom top', scrub: 1 } });
     gsap.from('.featured-photo img', { scale: 1.07, ease: 'none', scrollTrigger: { trigger: '.featured', start: 'top bottom', end: 'bottom top', scrub: 1 } });
   });
+  mm.add('(max-width: 1023px) and (prefers-reduced-motion: no-preference)', () => {
+    // Keep the editorial movement on touch screens, with shorter travel and no text fade-out.
+    gsap.to('.hero-photo img', { scale: 1.085, yPercent: 1.5, ease: 'none', scrollTrigger: { trigger: '.hero-visual', start: 'top 90%', end: 'bottom top', scrub: 0.6 } });
+    gsap.fromTo('.nature-photo', { y: 20, scale: 0.95 }, { y: -12, scale: 1, ease: 'none', scrollTrigger: { trigger: '.nature-photo', start: 'top 95%', end: 'bottom 25%', scrub: 0.6 } });
+    gsap.from('.nature-photo picture', { clipPath: 'inset(3% 4% 3% 4% round 40px)', ease: 'none', scrollTrigger: { trigger: '.nature-photo', start: 'top 90%', end: 'top 30%', scrub: 0.6 } });
+    gsap.to('.manifesto-image picture', { rotation: -1, ease: 'none', scrollTrigger: { trigger: '.manifesto-image', start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+    gsap.to('.pack-small', { y: -22, rotation: 3, ease: 'none', scrollTrigger: { trigger: '.packaging-images', start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+    gsap.from('.featured-photo img', { scale: 1.06, ease: 'none', scrollTrigger: { trigger: '.featured-photo', start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+    document.querySelectorAll('.step-photo img').forEach(image => {
+      gsap.from(image, { scale: 1.045, ease: 'none', scrollTrigger: { trigger: image.closest('figure'), start: 'top bottom', end: 'bottom 30%', scrub: 0.6 } });
+    });
+  });
   return mm;
 }
 
 function initSensory(mm) {
-  mm.add('(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)', () => {
+  mm.add({
+    desktop: '(min-width: 1024px) and (min-height: 720px)',
+    mobile: '(max-width: 1023px) and (min-height: 560px)',
+    motion: '(prefers-reduced-motion: no-preference)',
+  }, context => {
+    const { desktop, mobile, motion } = context.conditions;
+    if (!motion || (!desktop && !mobile)) return;
     const stage = document.querySelector('.sensory-stage');
     const scenes = gsap.utils.toArray('.sensory-scene');
     stage.classList.add('is-pinned');
     gsap.set(scenes.slice(1), { autoAlpha: 0 });
-    const story = gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top 82px', end: '+=190%', scrub: 0.8, pin: true, invalidateOnRefresh: true } });
+    const story = gsap.timeline({ scrollTrigger: { trigger: stage, start: () => `top ${window.innerWidth <= 760 ? 72 : 82}px`, end: mobile ? '+=150%' : '+=190%', scrub: mobile ? 0.5 : 0.8, pin: true, invalidateOnRefresh: true } });
     scenes.slice(1).forEach((scene, i) => {
       story.to(scenes[i], { autoAlpha: 0, duration: 0.7 }, i + 0.4)
         .to(scene, { autoAlpha: 1, duration: 0.7 }, i + 0.4)
-        .from(scene.querySelector('h3'), { y: 40, duration: 0.8 }, i + 0.4);
+        .from(scene.querySelector('h3'), { y: mobile ? 24 : 40, duration: 0.8 }, i + 0.4);
     });
     return () => stage.classList.remove('is-pinned');
+  });
+  mm.add({
+    shortDesktop: '(min-width: 1024px) and (max-height: 719px)',
+    shortMobile: '(max-width: 1023px) and (max-height: 559px)',
+    motion: '(prefers-reduced-motion: no-preference)',
+  }, context => {
+    const { shortDesktop, shortMobile, motion } = context.conditions;
+    if (!motion || (!shortDesktop && !shortMobile)) return;
+    document.querySelectorAll('.sensory-scene').forEach(scene => {
+      gsap.from(scene.querySelector('img'), { scale: 1.06, ease: 'none', scrollTrigger: { trigger: scene, start: 'top bottom', end: 'bottom top', scrub: 0.5 } });
+      gsap.from(scene.querySelector('.sensory-copy'), { y: 20, opacity: 0, duration: 0.7, scrollTrigger: { trigger: scene, start: 'top 65%', once: true }, clearProps: 'all' });
+    });
   });
 }
 
@@ -119,8 +151,10 @@ async function init() {
   await initPreloader();
   if (!window.gsap || !window.ScrollTrigger) { initHorizontalCollection(null); return; }
   gsap.registerPlugin(ScrollTrigger);
-  if (!reducedMotion.matches) initHeroAnimations();
+  // Browser chrome can resize a phone viewport during a swipe; orientation still refreshes.
+  ScrollTrigger.config({ ignoreMobileResize: true });
   const mm = initEditorialMotion();
+  initHeroAnimations(mm);
   initSensory(mm);
   initHorizontalCollection(mm);
   document.fonts.ready.then(() => ScrollTrigger.refresh());

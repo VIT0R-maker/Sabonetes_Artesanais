@@ -13,3 +13,18 @@
 .collection-window{scroll-padding-inline:7%}@media(max-width:760px){.collection-window{scroll-padding-inline:6%}}
 .collection.is-sticky{padding-top:40px;padding-bottom:25px}.is-sticky .collection-head{margin-bottom:25px}.is-sticky .collection-head h2{font-size:3.8rem;margin:14px 0}.is-sticky .product-image img{height:30vh;aspect-ratio:auto;object-fit:contain}.is-sticky .product-title{margin-top:17px}.is-sticky .product-title h3{font-size:2.6rem;margin:9px 0}.is-sticky .product-description{margin:12px 0 16px}.is-sticky .collection-bottom{padding-top:15px}
 @media(max-width:760px){.vertical-note{display:none}}
+/* Touch layouts retain the same sensory story within a stable, smaller viewport. */
+@media(max-width:1023px){
+  .sensory-stage.is-pinned{height:calc(100svh - 96px);min-height:380px}
+  .sensory-stage.is-pinned .sensory-copy{bottom:10%}
+  .product-image:active img{transform:scale(1.025)}
+}
+@media(max-width:760px){
+  .collection-head{flex-wrap:wrap}
+  .collection-head>div:first-child{flex:1 1 210px;min-width:0}
+  .collection-controls{margin-top:0;align-self:end}
+  .header{gap:12px}
+  .menu-toggle{flex-shrink:0}
+  .floating-contact{bottom:max(17px,env(safe-area-inset-bottom));right:max(17px,env(safe-area-inset-right))}
+}
+@media(hover:none){.product-image:hover img{transform:none}.product-view{opacity:1;transform:none}}

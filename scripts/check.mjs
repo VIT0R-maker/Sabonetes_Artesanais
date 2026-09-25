@@ -1,7 +1,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-const root = resolve('dist');
+const root = resolve('.');
 const html = readFileSync(join(root, 'index.html'), 'utf8');
 const errors = [];
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
@@ -18,7 +18,8 @@ for (const [, url] of html.matchAll(/href="(https:\/\/wa\.me\/[^"?]+)[^"]*"/g)) 
 if (!html.includes('https://www.instagram.com/saboaria130/')) errors.push('Instagram ausente');
 if (!html.includes('lang="pt-BR"')) errors.push('Idioma ausente');
 const walk = dir => readdirSync(dir).flatMap(name => { const file = join(dir, name); return statSync(file).isDirectory() ? walk(file) : [file]; });
-const files = walk(root);
+const files = ['index.html', 'app.js', 'styles.css'].map(file => join(root, file)).concat(walk(join(root, 'assets')));
+if (!existsSync(join(root, '.nojekyll'))) errors.push('Arquivo .nojekyll ausente na raiz');
 for (const file of files.filter(f => /\.(html|js|css)$/.test(f))) {
   const text = readFileSync(file, 'utf8');
   if (/ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]+/.test(text)) errors.push('Credencial encontrada no site');
