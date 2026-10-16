@@ -1,0 +1,122 @@
+[
+  {
+    "name": "01-black",
+    "source": "Você_é_um_diretor_de_fotografi(3).mp4",
+    "trim": [
+      0,
+      10
+    ],
+    "reverse": false,
+    "posterTime": 0,
+    "files": [
+      {
+        "file": "01-black.mp4",
+        "bytes": 2420832,
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "01-black-mobile.mp4",
+        "bytes": 1482704,
+        "width": 960,
+        "height": 540
+      }
+    ]
+  },
+  {
+    "name": "02-blue",
+    "source": "Você_é_um_diretor_de_fotografi (1)(3).mp4",
+    "trim": [
+      0,
+      10
+    ],
+    "reverse": false,
+    "posterTime": 4,
+    "files": [
+      {
+        "file": "02-blue.mp4",
+        "bytes": 3006528,
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "02-blue-mobile.mp4",
+        "bytes": 1877025,
+        "width": 960,
+        "height": 540
+      }
+    ]
+  },
+  {
+    "name": "03-craft",
+    "source": "Você_é_um_Diretor_de_Fotografi (3)(6).mp4",
+    "trim": [
+      0,
+      10
+    ],
+    "reverse": false,
+    "posterTime": 6,
+    "files": [
+      {
+        "file": "03-craft.mp4",
+        "bytes": 3185649,
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "03-craft-mobile.mp4",
+        "bytes": 2023462,
+        "width": 960,
+        "height": 540
+      }
+    ]
+  },
+  {
+    "name": "04-lavender-bridge",
+    "source": "gemini_generated_video_17957087(2).mp4",
+    "trim": [
+      9.5,
+      19.9
+    ],
+    "reverse": true,
+    "posterTime": 0,
+    "files": [
+      {
+        "file": "04-lavender-bridge.mp4",
+        "bytes": 2596821,
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "04-lavender-bridge-mobile.mp4",
+        "bytes": 1564563,
+        "width": 960,
+        "height": 540
+      }
+    ]
+  },
+  {
+    "name": "05-lavender-finale",
+    "source": "gemini_generated_video_e7cdaf45(2).mp4",
+    "trim": [
+      9.5,
+      19.9
+    ],
+    "reverse": false,
+    "posterTime": 10,
+    "files": [
+      {
+        "file": "05-lavender-finale.mp4",
+        "bytes": 2225805,
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "05-lavender-finale-mobile.mp4",
+        "bytes": 1338625,
+        "width": 960,
+        "height": 540
+      }
+    ]
+  }
+]

@@ -1,0 +1,115 @@
+/* Static HTML is the default: no JS, motion preference, or connection required. */
+.cinematic-story { background: var(--paper); }
+.cinematic-scene { position: relative; min-height: 100svh; overflow: hidden; isolation: isolate; }
+.cinematic-media { position: absolute; inset: 0; z-index: -2; background: #e4d8c7; }
+.cinematic-media img, .cinematic-media video { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: var(--position, 50% 50%); }
+.cinematic-media video { opacity: 0; pointer-events: none; }
+.cinematic-black { --position: 90% 50%; }
+.cinematic-copy { position: relative; width: min(620px, 49%); padding: 0; margin-left: 7%; padding-top: max(160px, 22svh); padding-bottom: 130px; }
+.cinematic-copy::before { content: ''; position: absolute; inset: -5vh -10vw -10vh -7vw; z-index: -1; background: radial-gradient(ellipse at 20% 45%, rgba(250,247,242,.94), rgba(250,247,242,.65) 35%, transparent 72%); pointer-events: none; }
+.cinematic-copy h1 { font-size: clamp(5rem, 8.8vw, 10rem); letter-spacing: -.055em; line-height: .86; margin: 32px 0; }
+.cinematic-copy h1 em, .cinematic-copy h2 em { color: inherit; }
+.cinematic-copy h2 { font-size: clamp(2.7rem, 5.4vw, 6.2rem); }
+.cinematic-subtitle { font: 1.8rem var(--serif); margin-top: 25px; }
+.cinematic-description { max-width: 320px; margin-top: 18px; font-size: .94rem; }
+.cinematic-actions { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: center; margin-top: 28px; }
+.cinematic-copy .eyebrow { margin-bottom: 24px; }
+.cinematic-details { margin-top: 28px; font-size: .875rem; line-height: 2; }
+.cinematic-details span { padding: 0 6px; }
+.cinematic-blue, .cinematic-bridge { color: #fffaf2; }
+.cinematic-blue .cinematic-copy::before, .cinematic-bridge .cinematic-copy::before { background: radial-gradient(ellipse at 20% 55%, rgba(20,32,17,.82), rgba(20,32,17,.40) 45%, transparent 72%); }
+.cinematic-blue .cinematic-copy { padding-top: 32svh; }
+.cinematic-craft .cinematic-copy { padding-top: 25svh; }
+.cinematic-craft h2 { font-size: clamp(2.5rem, 4.3vw, 5.2rem); }
+.cinematic-bridge .cinematic-copy { padding-top: 44svh; }
+.cinematic-finale .cinematic-copy { padding-top: 25svh; }
+.cinematic-finale h2 { font-size: clamp(2.8rem, 5vw, 6rem); }
+.cinematic-steps { list-style: none; margin: 32px 0 0; padding: 0; }
+.cinematic-step { font-size: .9rem; padding: 8px 0; }
+.cinematic-step span { font: italic 1.5rem var(--serif); margin-right: 15px; }
+.cinematic-toolbar, .cinematic-progress, .cinematic-vignette, .cinematic-grain { display: none; }
+
+/* Sticky gives the same fixed viewport stage without scroll hijacking or pin spacers. */
+.is-cinematic { height: 800svh; position: relative; }
+.is-cinematic .cinematic-stage { position: sticky; top: 0; height: 100svh; height: 100dvh; overflow: hidden; }
+.is-cinematic .cinematic-frame { position: absolute; inset: 0; overflow: hidden; transform: scale(calc(1 - var(--exit, 0) * .025)); border-radius: calc(var(--exit, 0) * 18px); }
+.is-cinematic .cinematic-scene { position: absolute; inset: 0; min-height: 0; opacity: 0; }
+.is-cinematic .cinematic-scene:first-child { opacity: 1; }
+.is-cinematic .has-frame video { opacity: 1; }
+.is-cinematic .cinematic-copy { opacity: 0; }
+.is-cinematic .cinematic-black .cinematic-copy { opacity: 1; }
+.is-cinematic .cinematic-steps { display: grid; }
+.is-cinematic .cinematic-step { grid-area: 1 / 1; opacity: 0; }
+.is-cinematic .cinematic-toolbar { position: absolute; bottom: max(25px, env(safe-area-inset-bottom)); left: 4.5%; right: max(110px, 7%); display: flex; gap: 28px; align-items: center; color: var(--ink); font-size: .75rem; }
+.cinematic-toolbar { isolation: isolate; z-index: 3; }
+.cinematic-toolbar::before { content: ''; position: absolute; inset: -25px -5vw -30px; z-index: -1; background: linear-gradient(transparent, rgba(250,247,242,.94)); pointer-events: none; }
+.cinematic-counter { font-variant-numeric: tabular-nums; letter-spacing: .15em; }
+.cinematic-hint { margin-right: auto; }
+.cinematic-hint span { margin-left: 14px; }
+.cinematic-toolbar a, .cinematic-mode { min-height: 44px; display: inline-flex; align-items: center; }
+.cinematic-mode { border: 0; border-bottom: 1px solid currentColor; padding: 0; background: none; font-size: inherit; }
+.is-cinematic .cinematic-progress { display: block; height: 2px; position: absolute; inset: auto 0 0; background: rgba(250,247,242,.3); }
+.cinematic-progress span { display: block; height: 100%; background: var(--olive); transform-origin: left; transform: scaleX(0); }
+.is-cinematic .cinematic-vignette { display: block; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 10vw rgba(40,30,20,.08); }
+.is-cinematic .cinematic-grain { display: block; position: absolute; inset: 0; pointer-events: none; opacity: .025; background: url('grain.svg'); }
+.header:not(.scrolled) { background: linear-gradient(rgba(250,247,242,.9), rgba(250,247,242,.55), transparent); }
+
+@media (max-width: 1023px) {
+  .is-cinematic { height: 620svh; }
+  .cinematic-copy { margin-left: 6%; width: 60%; }
+  .cinematic-copy h1 { font-size: clamp(4rem, 11vw, 7rem); }
+  .cinematic-copy h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+}
+
+/* A portrait composition reserves the lower third for words and keeps the soap in view. */
+@media (max-width: 760px) and (orientation: portrait) {
+  .cinematic-scene { min-height: 100svh; background: var(--paper); color: var(--ink); }
+  .cinematic-media { top: 7svh; bottom: auto; height: 58svh; z-index: -1; }
+  .cinematic-black { --position: 90% 50%; }
+  .cinematic-blue { --position: 78% 50%; }
+  .cinematic-craft { --position: 52% 50%; }
+  .cinematic-bridge { --position: 50% 50%; }
+  .cinematic-finale { --position: 57% 50%; }
+  .cinematic-media::after { content: ''; position: absolute; inset: auto 0 -1px; height: 13%; background: linear-gradient(transparent, var(--paper)); }
+  .cinematic-copy, .cinematic-blue .cinematic-copy, .cinematic-craft .cinematic-copy, .cinematic-bridge .cinematic-copy, .cinematic-finale .cinematic-copy { padding: 61svh 0 95px; margin: 0 6%; width: 88%; }
+  .cinematic-copy::before { display: none; }
+  .cinematic-copy h1 { font-size: clamp(3.4rem, 14.5vw, 4.5rem); margin: 14px 0 10px; line-height: .85; }
+  .cinematic-copy h1 br { display: none; }
+  .cinematic-copy h1 em::before { content: ' '; }
+  .cinematic-copy h2, .cinematic-craft h2, .cinematic-finale h2 { font-size: clamp(2.25rem, 9.4vw, 3.2rem); }
+  .cinematic-copy .eyebrow { font-size: .62rem; letter-spacing: .12em; margin-bottom: 12px; }
+  .cinematic-subtitle { font-size: 1.28rem; margin-top: 8px; }
+  .cinematic-description { font-size: .75rem; max-width: 300px; margin-top: 8px; line-height: 1.45; }
+  .cinematic-actions { gap: 10px 18px; margin-top: 15px; }
+  .cinematic-actions .button { padding: 10px 12px; min-height: 44px; font-size: .73rem; gap: 12px; }
+  .cinematic-actions .text-link { font-size: .73rem; min-height: 44px; display: inline-flex; align-items: center; }
+  .cinematic-details { font-size: .8rem; margin-top: 20px; }
+  .cinematic-steps { margin-top: 20px; }
+  .cinematic-step { font-size: .8rem; }
+  .is-cinematic .cinematic-toolbar { bottom: max(12px, env(safe-area-inset-bottom)); left: 6%; right: 90px; gap: 20px; font-size: .65rem; }
+  .cinematic-hint { display: none; }
+  .cinematic-counter { display: none; }
+  .is-cinematic .cinematic-grain, .is-cinematic .cinematic-vignette { display: none; }
+}
+@media (max-height: 720px) and (min-width: 761px), (max-height: 550px) {
+  .cinematic-copy, .cinematic-blue .cinematic-copy, .cinematic-craft .cinematic-copy, .cinematic-bridge .cinematic-copy, .cinematic-finale .cinematic-copy { padding-top: 110px; padding-bottom: 80px; }
+  .cinematic-copy h1 { font-size: 4.2rem; margin: 16px 0; }
+  .cinematic-copy h2 { font-size: 3.2rem; }
+  .cinematic-description { margin-top: 8px; font-size: .8rem; }
+  .cinematic-copy .eyebrow { margin-bottom: 10px; }
+  .cinematic-subtitle { font-size: 1.4rem; margin-top: 10px; }
+  .cinematic-actions { margin-top: 12px; }
+  .cinematic-actions .button { min-height: 44px; padding: 10px 14px; }
+}
+@media (max-height: 550px) and (orientation: landscape) {
+  .header, .header.scrolled { height: 65px; }
+  .cinematic-copy, .cinematic-blue .cinematic-copy, .cinematic-craft .cinematic-copy, .cinematic-bridge .cinematic-copy, .cinematic-finale .cinematic-copy { padding-top: 85px; }
+  .cinematic-copy h1 { font-size: 3.5rem; }
+  .cinematic-copy h1 br { display: none; }
+  .cinematic-copy h1 em::before { content: ' '; }
+  .cinematic-copy h2 { font-size: 2.3rem; }
+  .cinematic-description { display: none; }
+  .cinematic-story:not(.is-cinematic) .cinematic-description { display: block; }
+  .cinematic-steps { margin-top: 14px; }
+  .is-cinematic .cinematic-toolbar { bottom: 8px; }
+}

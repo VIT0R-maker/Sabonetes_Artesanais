@@ -1,0 +1,1579 @@
+Você é um Arquiteto Frontend Sênior, Creative Developer e UI/UX Designer especializado em experiências digitais premium, motion design, GSAP, ScrollTrigger, interfaces editoriais, storytelling visual, parallax, animações 3D com CSS e websites de alto impacto.
+
+Quero que você desenvolva um website COMPLETO, RESPONSIVO, PROFISSIONAL, SOFISTICADO e VISUALMENTE COMPLEXO para a marca:
+
+TOQUE DE AMOR — SABOARIA ARTESANAL
+
+A experiência precisa transmitir o nível de acabamento de uma campanha premium de cosméticos, perfumaria, skincare e produtos artesanais de luxo.
+
+O site deve parecer autoral, sofisticado e memorável.
+
+NÃO quero:
+- template genérico;
+- landing page simples;
+- sequência comum de cards;
+- aparência de loja pronta;
+- design institucional básico;
+- animações aleatórias apenas para impressionar.
+
+Quero uma experiência construída ao redor das IMAGENS REAIS DOS PRODUTOS fornecidas.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJETIVO CENTRAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As imagens devem ser tratadas como elementos narrativos e interativos.
+
+Elas NÃO devem simplesmente aparecer em:
+
+- grids tradicionais;
+- carrosséis genéricos;
+- cards comuns;
+- galerias estáticas.
+
+Quero que as imagens façam parte da experiência de navegação.
+
+Elas devem:
+
+- ocupar grandes áreas da tela;
+- reagir ao scroll;
+- surgir progressivamente;
+- criar profundidade;
+- mudar de escala;
+- deslocar-se em velocidades diferentes;
+- sobrepor-se ao conteúdo;
+- atravessar seções;
+- aparecer parcialmente atrás de textos;
+- revelar detalhes através de máscaras;
+- criar transições entre blocos;
+- funcionar como cenários;
+- funcionar como objetos flutuantes;
+- funcionar como elementos editoriais;
+- conduzir visualmente o usuário durante toda a página.
+
+O usuário deve sentir que está entrando no universo da marca.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMAGENS FORNECIDAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Analise cuidadosamente TODAS as imagens anexadas.
+
+Identifique automaticamente:
+
+- imagens de embalagem;
+- fotografias institucionais;
+- sabonete preto;
+- sabonete azul;
+- sabonetes em tons lilás;
+- imagens de produto reais;
+- imagens com cenário;
+- imagens com vegetação;
+- imagens adequadas para background;
+- imagens adequadas para close-up;
+- imagens adequadas para cards;
+- imagens adequadas para recorte;
+- imagens adequadas para sobreposição.
+
+Não utilize todas as imagens da mesma maneira.
+
+Determine o papel visual ideal para cada uma.
+
+Por exemplo:
+
+fotografias com composição ampla
+→ backgrounds e hero sections;
+
+fotografias de produto isolado
+→ elementos flutuantes;
+
+close-ups
+→ seções sensoriais;
+
+embalagens premium
+→ storytelling de identidade;
+
+fotografias reais mais simples
+→ seção artesanal / bastidores / autenticidade.
+
+Preserve sempre:
+- formato dos produtos;
+- cores originais;
+- proporções;
+- texturas;
+- identidade;
+- aparência artesanal.
+
+Não invente novos produtos.
+
+Não substitua as imagens reais por imagens genéricas.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRINCÍPIO DE DIREÇÃO VISUAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A experiência deve combinar:
+
+editorial de cosméticos premium
+
++
+
+fotografia artesanal
+
++
+
+storytelling de marca
+
++
+
+parallax sofisticado
+
++
+
+experiência de produto controlada por scroll.
+
+O objetivo é criar profundidade visual sem prejudicar usabilidade.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TECNOLOGIAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Utilize preferencialmente:
+
+HTML5
+Tailwind CSS
+JavaScript ES6+
+GSAP
+GSAP ScrollTrigger
+
+CSS customizado pode complementar Tailwind.
+
+Não utilize frameworks pesados desnecessariamente.
+
+Não dependa de bibliotecas excessivas.
+
+Todo movimento deve ser suave e performático.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARQUITETURA DA EXPERIÊNCIA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Estrutura recomendada:
+
+NAVBAR
+
+↓
+
+HERO IMERSIVO
+
+↓
+
+MANIFESTO
+
+↓
+
+NATUREZA / INGREDIENTES
+
+↓
+
+PROCESSO ARTESANAL
+
+↓
+
+EXPERIÊNCIA SENSORIAL
+
+↓
+
+COLEÇÃO
+
+↓
+
+DESTAQUE DE PRODUTOS
+
+↓
+
+IDENTIDADE / EMBALAGENS
+
+↓
+
+CTA FINAL
+
+↓
+
+RODAPÉ
+
+A navegação deve parecer uma história contínua.
+
+Cada seção deve possuir identidade própria, mas todas devem parecer parte do mesmo universo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. HERO IMERSIVO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A primeira tela deve ocupar aproximadamente 100vh.
+
+Utilize uma das imagens mais fortes da marca como composição principal.
+
+A imagem deve preencher grande parte do viewport.
+
+Evite simplesmente fazer:
+
+background-image: cover
+
+e colocar texto por cima.
+
+Quero composição em CAMADAS.
+
+Exemplo conceitual:
+
+CAMADA 1:
+background com imagem ampliada e suavemente desfocada.
+
+CAMADA 2:
+imagem principal nítida do sabonete.
+
+CAMADA 3:
+folhas ou detalhes recortados em foreground.
+
+CAMADA 4:
+textos.
+
+CAMADA 5:
+pequenos efeitos atmosféricos.
+
+O resultado deve possuir profundidade.
+
+Título:
+
+TOQUE DE AMOR
+
+Eyebrow:
+
+SABOARIA ARTESANAL
+
+Subtítulo:
+
+Beleza nos pequenos gestos.
+
+Descrição:
+
+Sabonetes artesanais criados para transformar cuidado em experiência.
+
+CTA principal:
+
+Conheça nossa coleção
+
+CTA secundário:
+
+Nossa essência
+
+Adicionar indicação discreta:
+
+Role para descobrir
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ANIMAÇÃO DO HERO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Quando a página carregar:
+
+1. background surge suavemente;
+2. imagem principal aumenta levemente de escala;
+3. elementos naturais aparecem por máscaras;
+4. eyebrow surge;
+5. título aparece linha por linha;
+6. subtítulo aparece;
+7. botões aparecem;
+8. indicador de scroll aparece por último.
+
+Nada deve entrar ao mesmo tempo.
+
+Utilize:
+
+opacity
+translate3d
+scale
+blur
+clip-path
+
+Evite exageros.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARALLAX EM CAMADAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crie velocidades diferentes para:
+
+background;
+produto;
+folhas;
+flores;
+elementos decorativos;
+textos.
+
+Exemplo:
+
+background:
+movimento muito lento.
+
+produto:
+movimento médio.
+
+folhas em foreground:
+movimento ligeiramente mais rápido.
+
+Isso deve gerar sensação de profundidade.
+
+Utilize GSAP ScrollTrigger.
+
+Não utilizar transformações tão grandes que revelem bordas vazias.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRANSIÇÃO HERO → MANIFESTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Durante o scroll:
+
+a imagem principal deve crescer lentamente.
+
+Parte do produto pode passar visualmente próxima do usuário.
+
+O texto do Hero desaparece.
+
+Uma região clara ou escura da imagem pode ocupar progressivamente a tela.
+
+Essa composição deve revelar a próxima seção.
+
+Não utilizar cortes bruscos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. MANIFESTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar uma seção editorial.
+
+Texto principal grande:
+
+“Mais que sabonete.
+Um carinho em cada detalhe.”
+
+Utilize uma fotografia artesanal próxima do texto.
+
+A imagem NÃO deve ficar simplesmente em um retângulo.
+
+Utilize algo como:
+
+- máscara orgânica;
+- bordas assimétricas;
+- reveal por clip-path;
+- crop dinâmico;
+- imagem parcialmente fora do grid.
+
+Durante o scroll:
+
+a fotografia cresce;
+o texto se desloca levemente;
+uma segunda imagem pode aparecer atrás da primeira.
+
+Criar sensação de revista editorial premium.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. NATUREZA / INGREDIENTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Título:
+
+Natureza que toca a pele.
+
+Usar fotografias com:
+
+folhas;
+flores;
+madeira;
+pedras;
+sabão azul;
+ambiente natural.
+
+Criar uma composição em profundidade.
+
+Exemplo:
+
+imagem ampla no fundo;
+sabonete azul em foreground;
+flores brancas em outro plano;
+labels discretos.
+
+Labels:
+
+Ingredientes naturais
+Feito à mão
+Produção artesanal
+Cuidado em cada detalhe
+
+Os labels devem reagir ao scroll e entrar em momentos diferentes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EFEITO DO SABONETE AZUL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Utilize a fotografia do sabonete azul como um grande elemento visual.
+
+Ele pode começar pequeno em um canto.
+
+Durante o scroll:
+
+aumenta;
+move-se em direção ao centro;
+aproxima-se visualmente;
+mostra o relevo;
+depois desloca-se para abrir espaço para texto.
+
+Não fazer rotações exageradas.
+
+Movimentos máximos:
+
+rotateX: ±5deg
+rotateY: ±8deg
+rotateZ: ±3deg
+
+O sabonete precisa parecer pesado e físico.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. PROCESSO ARTESANAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar storytelling visual em três etapas.
+
+01
+Seleção dos ingredientes
+
+02
+Produção artesanal
+
+03
+Acabamento e cuidado
+
+Cada etapa deve ter:
+
+texto;
+imagem;
+número grande;
+detalhe visual.
+
+Mas não usar cards tradicionais.
+
+Utilize composição alternada.
+
+Exemplo:
+
+01:
+imagem à direita;
+texto à esquerda.
+
+02:
+imagem grande ocupando o centro;
+texto flutuando.
+
+03:
+imagem à esquerda;
+texto à direita.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ANIMAÇÃO DO PROCESSO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ao entrar em cada etapa:
+
+número aparece;
+linha decorativa cresce;
+imagem é revelada por clip-path;
+texto surge;
+detalhes aparecem progressivamente.
+
+Ao sair:
+
+elementos perdem opacidade;
+imagem move alguns pixels;
+próxima etapa entra.
+
+Tudo controlado por ScrollTrigger.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. EXPERIÊNCIA SENSORIAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar uma das seções mais artísticas do site.
+
+Utilize close-ups de:
+
+textura;
+água;
+relevo;
+marmorização;
+superfície dos sabonetes.
+
+A seção deve possuir grandes palavras:
+
+TEXTURAS
+
+AROMAS
+
+SENSAÇÕES
+
+Cada palavra deve ocupar boa parte da tela.
+
+Conforme o usuário rola:
+
+TEXTURAS
+→ imagem correspondente.
+
+AROMAS
+→ nova composição.
+
+SENSAÇÕES
+→ nova composição.
+
+Não utilizar troca brusca.
+
+Utilizar:
+
+crossfade;
+mask reveal;
+scale;
+blur;
+parallax.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EFEITO DE MÁSCARA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crie alguns reveals usando clip-path.
+
+Exemplos:
+
+clip-path: inset()
+clip-path: circle()
+clip-path: ellipse()
+
+Uma imagem pode começar visível dentro de um pequeno círculo.
+
+Durante o scroll:
+
+o círculo cresce;
+
+até preencher grande parte da tela.
+
+Utilize esse recurso de forma pontual.
+
+Não repetir em todas as seções.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. IMAGENS FLUTUANTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crie momentos nos quais algumas imagens de sabonetes parecem flutuar pelo layout.
+
+IMPORTANTE:
+
+não literalmente como objetos sem gravidade.
+
+A sensação deve ser editorial.
+
+Exemplo:
+
+uma fotografia entra parcialmente pela lateral;
+
+move-se lentamente;
+
+fica atrás de uma palavra;
+
+depois cruza para frente;
+
+desaparece na próxima seção.
+
+Use:
+
+position: absolute;
+translate3d();
+scale();
+rotation;
+z-index dinâmico.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROFUNDIDADE ENTRE TEXTO E IMAGEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crie composições como:
+
+TEXTO
+↓
+imagem atrás
+
+ou
+
+imagem
+↓
+palavra gigante atrás
+↓
+texto menor na frente.
+
+Exemplo:
+
+“NATURAL”
+
+como palavra decorativa gigante ao fundo.
+
+Na frente:
+
+fotografia do sabonete.
+
+Na frente dela:
+
+pequena descrição.
+
+Criar profundidade editorial.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. COLEÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A seção da coleção deve mudar a dinâmica.
+
+Título:
+
+Nossa coleção
+
+Subtítulo:
+
+Cada sabonete carrega um cuidado diferente.
+
+Mostrar produtos usando uma combinação de:
+
+grid editorial;
+slider horizontal;
+imagens grandes;
+hover detalhado.
+
+Evite cartões com aparência de e-commerce genérico.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GALERIA HORIZONTAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Em desktop:
+
+crie uma seção sticky.
+
+Enquanto o usuário rola verticalmente:
+
+uma coleção se desloca horizontalmente.
+
+Exemplo:
+
+scroll ↓
+
+Produto 1 → Produto 2 → Produto 3 → Produto 4
+
+Utilize GSAP ScrollTrigger.
+
+Cada produto deve possuir:
+
+imagem;
+nome;
+aroma;
+pequena descrição;
+CTA.
+
+Em mobile:
+
+transformar em scroll horizontal nativo ou layout vertical.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HOVER DE PRODUTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ao passar o mouse:
+
+imagem aumenta muito levemente;
+background sofre pequena alteração;
+texto complementar aparece;
+seta se desloca;
+borda reage;
+imagem pode inclinar 1–2 graus.
+
+Nunca criar efeitos agressivos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. DESTAQUE SABONETE PRETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar uma seção especial usando o sabonete preto.
+
+Ele deve parecer mais dramático.
+
+Fundo:
+
+carvão;
+madeira;
+verde escuro;
+luz quente.
+
+Texto sugerido:
+
+Sabonete de Carvão
+
+Força da natureza.
+Cuidado em cada detalhe.
+
+A imagem pode ocupar 50–60% da tela.
+
+Durante o scroll:
+
+produto cresce;
+background move lentamente;
+texto permanece sticky;
+detalhes da marmorização ficam mais visíveis.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. IDENTIDADE / EMBALAGENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Utilize as imagens premium de embalagem da marca.
+
+Essa seção deve transmitir:
+
+presente;
+cuidado;
+delicadeza;
+valor percebido;
+sofisticação.
+
+Criar composição com:
+
+creme;
+lavanda;
+kraft;
+dourado.
+
+Não colocar todas as embalagens alinhadas.
+
+Utilize um layout editorial assimétrico.
+
+Exemplo:
+
+imagem grande à esquerda;
+imagem menor sobreposta;
+close-up parcial;
+texto lateral.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MOVIMENTO DAS EMBALAGENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Durante o scroll:
+
+imagem principal sobe lentamente;
+imagem secundária move em outra velocidade;
+detalhe aparece por máscara;
+texto entra entre as imagens.
+
+Criar sensação de editorial de luxo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. SCROLL STORYTELLING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+O site deve reagir intensamente ao scroll.
+
+Mas NÃO realizar scroll hijacking.
+
+O usuário continua controlando a página normalmente.
+
+Use ScrollTrigger para:
+
+- entradas;
+- saídas;
+- sticky scenes;
+- paralaxe;
+- crossfades;
+- escalas;
+- rotações discretas;
+- deslocamentos;
+- mudança de opacity;
+- blur;
+- máscaras;
+- sequências editoriais.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ELEMENTOS STICKY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use position: sticky em pontos estratégicos.
+
+Exemplo:
+
+uma imagem permanece no centro da tela enquanto diferentes frases aparecem ao lado.
+
+Ou:
+
+texto permanece fixo enquanto 3 imagens passam ao redor.
+
+Ou:
+
+uma palavra permanece enquanto o produto se aproxima.
+
+Não abusar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TEXTOS GRANDES COMO ELEMENTO VISUAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Utilize algumas palavras em grande escala.
+
+Exemplos:
+
+NATURAL
+ARTESANAL
+CUIDADO
+ESSÊNCIA
+AMOR
+
+Essas palavras podem funcionar como parte da composição.
+
+Podem ficar:
+
+atrás das imagens;
+parcialmente cortadas;
+com baixa opacidade;
+ocupando vários vw.
+
+Não prejudicar leitura.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIREÇÃO DE ARTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Basear toda a identidade visual nos produtos e embalagens fornecidos.
+
+Paleta:
+
+Creme / papel:
+#F1E6D8
+
+Bege:
+#D8C4AA
+
+Kraft:
+#B68F68
+
+Lavanda:
+#A994B9
+
+Lilás suave:
+#C8B9D4
+
+Verde oliva:
+#65704A
+
+Verde folha:
+#485438
+
+Marrom:
+#4A3023
+
+Dourado:
+#B58A45
+
+Carvão:
+#171311
+
+Branco quente:
+#FAF7F2
+
+Dourado somente em detalhes.
+
+Nunca transformar tudo em dourado.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TIPOGRAFIA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Títulos:
+
+Cormorant Garamond
+
+ou
+
+Playfair Display
+
+Textos:
+
+Inter
+Manrope
+DM Sans
+
+Use fonte manuscrita sofisticada somente para pequenos detalhes.
+
+Nunca em parágrafos extensos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LAYOUT EDITORIAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Evite excesso de elementos centralizados.
+
+Utilize:
+
+layouts assimétricos;
+espaço negativo;
+imagens fora do grid;
+tipografia grande;
+sobreposições controladas;
+alinhamento editorial;
+quebras de composição.
+
+A página deve parecer desenhada, não montada a partir de componentes genéricos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EFEITOS ATMOSFÉRICOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Adicionar discretamente:
+
+grain;
+vinheta;
+gradientes;
+soft glow;
+sombras;
+blur;
+texturas de papel;
+light leaks extremamente sutis.
+
+Não exagerar.
+
+Nada cyberpunk.
+
+Nada gamer.
+
+Nada neon.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CURSOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+No desktop, criar cursor contextual somente onde fizer sentido.
+
+Exemplo:
+
+ao passar por imagem da coleção:
+
+“Ver produto”
+
+ao passar por slider:
+
+“Arraste”
+
+Não substituir completamente o cursor padrão em todo o site.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MICROINTERAÇÕES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Adicionar:
+
+underline animado;
+setas com pequeno deslocamento;
+magnetic buttons sutis;
+hover em imagens;
+hover em links;
+feedback de cursor;
+transição de navbar;
+efeitos de foco.
+
+Tudo precisa parecer premium.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NAVBAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Navbar sofisticada.
+
+Estado inicial:
+
+transparente.
+
+Links:
+
+Início
+Nossa essência
+Processo
+Coleção
+Sobre
+Contato
+
+CTA:
+
+Conheça a coleção
+
+Conforme rolar:
+
+background translúcido;
+backdrop blur;
+borda sutil.
+
+Exemplo:
+
+background:
+rgba(245, 236, 224, 0.72)
+
+backdrop-filter:
+blur(18px)
+
+Dependendo da imagem atrás, altere automaticamente entre tema claro e escuro.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CTA FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar uma conclusão visual extremamente forte.
+
+Utilizar uma das fotografias mais bonitas da marca.
+
+Pode ocupar quase toda a largura da seção.
+
+Texto:
+
+Um toque de amor
+para fazer parte do seu dia.
+
+CTA principal:
+
+Conheça nossos sabonetes
+
+CTA secundário:
+
+Fale conosco
+
+Ao aproximar-se dessa seção:
+
+imagens anteriores desaparecem;
+layout fica progressivamente mais limpo;
+produto ganha protagonismo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RODAPÉ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Rodapé completo e elegante.
+
+Incluir:
+
+logo / nome da marca;
+descrição;
+links;
+redes sociais;
+contato;
+Instagram;
+WhatsApp;
+navegação;
+copyright.
+
+Pode utilizar fundo carvão ou marrom muito escuro.
+
+Tipografia creme.
+
+Detalhes lavanda/dourado discretos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRELOADER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Como existem muitas imagens, criar preload visual elegante.
+
+Exemplo:
+
+Toque de Amor
+
+Carregando experiência
+
+00 → 100
+
+Não esperar absolutamente todas as imagens da página inteira.
+
+Priorizar:
+
+Hero;
+primeiras imagens;
+assets críticos.
+
+Restante pode utilizar lazy loading.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OTIMIZAÇÃO DAS IMAGENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Preparar estrutura para:
+
+AVIF
+WebP
+fallback JPEG/PNG quando necessário.
+
+Utilizar:
+
+<picture>
+srcset
+sizes
+loading="lazy"
+decoding="async"
+
+Não carregar imagens gigantes em smartphones.
+
+Utilizar resoluções responsivas.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECORTES RESPONSIVOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Não usar o mesmo crop para todas as telas.
+
+Defina object-position individual por imagem.
+
+Desktop:
+composição cinematográfica.
+
+Tablet:
+reposicionamento.
+
+Mobile:
+produto central ou foco relevante.
+
+Nunca cortar:
+logo da embalagem;
+produto principal;
+detalhes importantes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MOBILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar uma experiência específica.
+
+Não apenas reduzir o desktop.
+
+Em mobile:
+
+diminuir paralaxe;
+reduzir sobreposições;
+diminuir blur;
+evitar elementos flutuando fora da tela;
+simplificar sticky sections;
+usar imagens com crops específicos;
+preservar hierarquia;
+garantir botões confortáveis.
+
+A experiência ainda precisa parecer premium.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PREFERS REDUCED MOTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implementar:
+
+@media (prefers-reduced-motion: reduce)
+
+Nesse modo:
+
+reduzir parallax;
+remover movimentos grandes;
+desativar efeitos 3D;
+manter fades simples.
+
+A página precisa continuar visualmente bonita.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPONSIVIDADE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Testar visualmente em:
+
+1920px
+1440px
+1280px
+1024px
+768px
+430px
+390px
+360px
+
+Não permitir:
+
+overflow horizontal;
+texto cortado;
+imagem importante fora da tela;
+layout quebrado;
+elementos sobrepostos indevidamente;
+botões pequenos;
+tipografia ilegível.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERFORMANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Prioridade máxima.
+
+Utilizar:
+
+transform;
+translate3d();
+opacity;
+will-change apenas quando necessário;
+requestAnimationFrame se necessário;
+IntersectionObserver;
+lazy loading;
+ScrollTrigger otimizado.
+
+Evitar animação de:
+
+top;
+left;
+width;
+height.
+
+Evitar listeners excessivos.
+
+Evitar recalcular layout a cada frame.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALIDADE DO CÓDIGO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Quero código pronto para produção.
+
+Organize o JavaScript por responsabilidades.
+
+Exemplo:
+
+initPreloader()
+initNavigation()
+initHeroAnimations()
+initParallax()
+initManifesto()
+initCraftsmanship()
+initSensorySection()
+initHorizontalCollection()
+initFloatingImages()
+initProductHover()
+initResponsiveBehavior()
+
+Não colocar toda a aplicação em uma única função.
+
+Criar constantes configuráveis.
+
+Comentar apenas o necessário.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUTURA RECOMENDADA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+body
+
+navbar
+
+main
+
+  hero
+    hero-background
+    hero-product
+    foreground-elements
+    hero-content
+
+  manifesto
+
+  nature
+    parallax-images
+    ingredient-labels
+
+  craftsmanship
+    step-01
+    step-02
+    step-03
+
+  sensory
+    texture-scene
+    aroma-scene
+    sensation-scene
+
+  collection
+    horizontal-track
+    products
+
+  featured-product
+
+  packaging-story
+
+  final-cta
+
+footer
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+USO DE Z-INDEX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crie uma arquitetura de profundidade consistente.
+
+Exemplo:
+
+background:
+0
+
+decorative-background:
+2
+
+large-images:
+5
+
+foreground-images:
+10
+
+content:
+20
+
+navbar:
+50
+
+preloader:
+100
+
+Evite valores aleatórios espalhados pelo CSS.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGRAS PARA AS IMAGENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CRÍTICO:
+
+Nunca distorcer imagens usando width/height inadequados.
+
+Preservar aspect-ratio.
+
+Não aumentar imagem de baixa qualidade excessivamente.
+
+Não usar filtros fortes que destruam cores reais.
+
+Não esconder o produto apenas para favorecer o layout.
+
+Não colocar texto diretamente sobre áreas muito detalhadas sem overlay.
+
+Se produto estiver à esquerda:
+texto preferencialmente à direita.
+
+Se produto estiver à direita:
+texto preferencialmente à esquerda.
+
+Se produto estiver centralizado:
+usar texto acima, abaixo ou em outro momento do scroll.
+
+O PRODUTO É O PROTAGONISTA.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OVERLAYS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Utilizar somente quando necessário para legibilidade.
+
+Prefira gradientes localizados.
+
+Exemplo:
+
+linear-gradient(
+  90deg,
+  rgba(20,15,12,.65),
+  rgba(20,15,12,.08)
+)
+
+Não colocar uma camada preta constante sobre todas as imagens.
+
+Preservar fotografia.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ANIMAÇÕES DE ENTRADA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Não repetir exatamente a mesma entrada em todas as seções.
+
+Variar com coerência:
+
+fade + translate;
+clip reveal;
+mask;
+scale;
+parallax;
+slide editorial;
+blur-to-focus.
+
+Mas manter a mesma linguagem visual.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RITMO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+O site não pode parecer frenético.
+
+Alternar:
+
+momentos ricos em movimento
+
+com
+
+momentos silenciosos e minimalistas.
+
+Exemplo:
+
+Hero:
+impactante.
+
+Manifesto:
+calmo.
+
+Natureza:
+imersivo.
+
+Processo:
+narrativo.
+
+Sensorial:
+experimental.
+
+Coleção:
+interativo.
+
+CTA:
+calmo novamente.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJETIVO EMOCIONAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+O usuário deve sentir:
+
+“Essa marca artesanal foi tratada como uma marca premium.”
+
+A experiência precisa transmitir:
+
+cuidado;
+autenticidade;
+delicadeza;
+natureza;
+confiança;
+sofisticação;
+sensorialidade.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REFERÊNCIA DE QUALIDADE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Pense no nível de acabamento de:
+
+editoriais de skincare premium;
+landing pages de perfumaria;
+campanhas de cosméticos;
+sites experimentais premiados;
+apresentações digitais de produtos de luxo.
+
+Não copiar nenhum site existente.
+
+Utilizar apenas como referência de qualidade visual e interação.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ENTREGA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Quero que você desenvolva A PÁGINA COMPLETA.
+
+Não entregue mockup.
+
+Não entregue pseudocódigo.
+
+Não entregue somente sugestões.
+
+Crie todos os arquivos necessários.
+
+Incluir:
+
+HTML
+Tailwind/CSS
+JavaScript
+GSAP
+ScrollTrigger
+estrutura de assets
+responsividade
+menu mobile
+preloader
+animações
+parallax
+sticky sections
+galeria
+coleção
+microinterações
+fallbacks
+
+Use diretamente as imagens disponibilizadas no projeto.
+
+Se os nomes dos arquivos forem diferentes dos exemplos, inspecione os assets e adapte automaticamente os caminhos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CHECKLIST FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Antes de concluir:
+
+1. Verifique todos os caminhos das imagens.
+2. Verifique erros JavaScript.
+3. Verifique ScrollTrigger.
+4. Verifique overflow.
+5. Verifique z-index.
+6. Verifique mobile.
+7. Verifique tablet.
+8. Verifique desktop grande.
+9. Verifique lazy loading.
+10. Verifique prefers-reduced-motion.
+11. Verifique legibilidade dos textos.
+12. Verifique se nenhuma imagem importante é cortada incorretamente.
+13. Verifique performance.
+14. Verifique navbar.
+15. Verifique menu mobile.
+16. Verifique animações ao redimensionar a janela.
+17. Verifique se as animações continuam coerentes ao subir e descer a página.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CRITÉRIO MÁXIMO DE QUALIDADE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Não quero apenas “um site com imagens bonitas”.
+
+Quero que as imagens FAÇAM PARTE DA INTERFACE.
+
+Elas precisam:
+
+entrar;
+sair;
+aproximar;
+afastar;
+revelar conteúdo;
+criar profundidade;
+conectar seções;
+contar a história;
+conduzir o olhar;
+responder ao scroll.
+
+O usuário deve sentir que está explorando uma experiência editorial e sensorial construída ao redor dos sabonetes.
+
+As fotografias são os protagonistas.
+
+O scroll conduz a narrativa.
+
+A tipografia complementa a fotografia.
+
+As animações dão profundidade.
+
+Todo o design deve nascer desses quatro princípios.
