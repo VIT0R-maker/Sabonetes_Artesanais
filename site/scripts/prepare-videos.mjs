@@ -22,10 +22,12 @@ function run(args) {
 const manifest = [];
 for (const [name, original, start, end, reverse, posterTime] of clips) {
   const files = [];
-  for (const [suffix, width, height] of [['', 1280, 720], ['-mobile', 960, 540]]) {
+  // Mobile: independent frames avoid decoding up to 12 earlier frames per seek.
+  // Desktop: short GOPs, no B-frames. Both preserve the original 24 fps.
+  for (const [suffix, width, height, keyframeInterval, crf] of [['', 1280, 720, 6, 20], ['-mobile', 854, 480, 1, 22]]) {
     const file = `${name}${suffix}.mp4`;
-    run(['-i', join(source, original), '-an', '-vf', `trim=start=${start}:end=${end},setpts=PTS-STARTPTS,${reverse ? 'reverse,' : ''}fps=24,scale=${width}:${height}:flags=lanczos,setsar=1`, '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-pix_fmt', 'yuv420p', '-g', '12', '-keyint_min', '12', '-sc_threshold', '0', '-movflags', '+faststart', join(output, file)]);
-    files.push({ file, bytes: statSync(join(output, file)).size, width, height });
+    run(['-i', join(source, original), '-an', '-vf', `trim=start=${start}:end=${end},setpts=PTS-STARTPTS,${reverse ? 'reverse,' : ''}fps=24,scale=${width}:${height}:flags=lanczos,setsar=1`, '-c:v', 'libx264', '-preset', 'slow', '-crf', String(crf), '-pix_fmt', 'yuv420p', '-g', String(keyframeInterval), '-keyint_min', String(keyframeInterval), '-bf', '0', '-sc_threshold', '0', '-movflags', '+faststart', join(output, file)]);
+    files.push({ file, bytes: statSync(join(output, file)).size, width, height, fps: 24, keyframeInterval, bFrames: 0, crf });
     console.log(`Preparado: ${file}`);
   }
   run(['-ss', String(posterTime), '-i', join(output, `${name}.mp4`), '-frames:v', '1', '-c:v', 'libwebp', '-quality', '85', join(output, 'posters', `${name}.webp`)]);
