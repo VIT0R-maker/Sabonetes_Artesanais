@@ -11,15 +11,23 @@
     "files": [
       {
         "file": "01-black.mp4",
-        "bytes": 2420832,
+        "bytes": 3275797,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "fps": 24,
+        "keyframeInterval": 6,
+        "bFrames": 0,
+        "crf": 20
       },
       {
         "file": "01-black-mobile.mp4",
-        "bytes": 1482704,
-        "width": 960,
-        "height": 540
+        "bytes": 3239876,
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "keyframeInterval": 1,
+        "bFrames": 0,
+        "crf": 22
       }
     ]
   },
@@ -35,15 +43,23 @@
     "files": [
       {
         "file": "02-blue.mp4",
-        "bytes": 3006528,
+        "bytes": 4184487,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "fps": 24,
+        "keyframeInterval": 6,
+        "bFrames": 0,
+        "crf": 20
       },
       {
         "file": "02-blue-mobile.mp4",
-        "bytes": 1877025,
-        "width": 960,
-        "height": 540
+        "bytes": 4040322,
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "keyframeInterval": 1,
+        "bFrames": 0,
+        "crf": 22
       }
     ]
   },
@@ -59,15 +75,23 @@
     "files": [
       {
         "file": "03-craft.mp4",
-        "bytes": 3185649,
+        "bytes": 4179036,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "fps": 24,
+        "keyframeInterval": 6,
+        "bFrames": 0,
+        "crf": 20
       },
       {
         "file": "03-craft-mobile.mp4",
-        "bytes": 2023462,
-        "width": 960,
-        "height": 540
+        "bytes": 3455203,
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "keyframeInterval": 1,
+        "bFrames": 0,
+        "crf": 22
       }
     ]
   },
@@ -83,15 +107,23 @@
     "files": [
       {
         "file": "04-lavender-bridge.mp4",
-        "bytes": 2596821,
+        "bytes": 3494538,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "fps": 24,
+        "keyframeInterval": 6,
+        "bFrames": 0,
+        "crf": 20
       },
       {
         "file": "04-lavender-bridge-mobile.mp4",
-        "bytes": 1564563,
-        "width": 960,
-        "height": 540
+        "bytes": 3106285,
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "keyframeInterval": 1,
+        "bFrames": 0,
+        "crf": 22
       }
     ]
   },
@@ -107,15 +139,23 @@
     "files": [
       {
         "file": "05-lavender-finale.mp4",
-        "bytes": 2225805,
+        "bytes": 3196589,
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "fps": 24,
+        "keyframeInterval": 6,
+        "bFrames": 0,
+        "crf": 20
       },
       {
         "file": "05-lavender-finale-mobile.mp4",
-        "bytes": 1338625,
-        "width": 960,
-        "height": 540
+        "bytes": 3295990,
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "keyframeInterval": 1,
+        "bFrames": 0,
+        "crf": 22
       }
     ]
   }

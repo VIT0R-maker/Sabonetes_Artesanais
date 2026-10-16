@@ -8,6 +8,17 @@ export const SCENES = [
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const smooth = value => { const p = clamp(value); return p * p * (3 - 2 * p); };
 const overlapAt = index => index === 1 ? .024 : .008;
+const FPS = 24;
+const setStyle = (element, property, value) => {
+  const text = String(value);
+  if (element.style[property] !== text) element.style[property] = text;
+};
+
+// Sample inside the selected frame, avoiding floating-point seeks onto its border.
+export function frameTime(progress, duration) {
+  const lastFrame = Math.max(0, Math.round(duration * FPS) - 1);
+  return (Math.round(clamp(progress) * lastFrame) + .25) / FPS;
+}
 
 // Pure mapping, shared with the regression checks. The last 8% holds the hero shot.
 export function mapStory(progress) {
@@ -27,6 +38,7 @@ export function createCinematicStory() {
   const cards = [...section.querySelectorAll('.cinematic-scene')];
   const videos = cards.map(card => card.querySelector('video'));
   const copies = cards.map(card => card.querySelector('.cinematic-copy'));
+  const links = copies.map(copy => [...copy.querySelectorAll('a')]);
   const steps = [...section.querySelectorAll('.cinematic-step')];
   const status = section.querySelector('.cinematic-counter');
   const progressBar = section.querySelector('.cinematic-progress span');
@@ -35,8 +47,10 @@ export function createCinematicStory() {
   const connection = navigator.connection;
   // Choose once before assigning any src. Resizing does not redownload the same film.
   const mobile = matchMedia('(max-width: 1023px)').matches || matchMedia('(pointer: coarse)').matches;
-  const states = videos.map(() => ({ target: 0, seekAt: 0, waitingSince: null, shown: false }));
-  let trigger, frame = 0, lastTime = 0, target = 0, current = 0, enabled = false, manualStatic = false;
+  const newState = () => ({ target: 0, requested: null, seekAt: 0, waitingSince: null, shown: false, visible: false });
+  const states = videos.map(newState);
+  let trigger, frame = 0, target = 0, current = 0, enabled = false, manualStatic = false;
+  let scrollStart = 0, scrollEnd = 1, stageHeight = innerHeight, direction = 1, lastActive = -1;
   let resolveReady;
   const ready = new Promise(resolve => { resolveReady = resolve; });
 
@@ -46,14 +60,14 @@ export function createCinematicStory() {
     video.pause();
     video.removeAttribute('src');
     video.load();
-    states[index] = { target: 0, seekAt: 0, waitingSince: null, shown: false };
+    states[index] = newState();
     cards[index].classList.remove('has-frame');
   }
 
   function load(index, preload = 'auto') {
     const video = videos[index];
     if (!video) return;
-    video.preload = preload;
+    if (video.preload !== preload) video.preload = preload;
     if (video.hasAttribute('src')) return;
     video.muted = true;
     video.src = `assets/videos/${SCENES[index].file}${mobile ? '-mobile' : ''}.mp4`;
@@ -72,7 +86,7 @@ export function createCinematicStory() {
       card.style.removeProperty('opacity');
       card.style.removeProperty('pointer-events');
       card.inert = false;
-      card.querySelectorAll('a').forEach(link => { link.inert = false; });
+      links[index].forEach(link => { link.inert = false; });
       copies[index].style.removeProperty('opacity');
       copies[index].style.removeProperty('pointer-events');
       card.querySelector('img').src = `assets/videos/posters/${SCENES[index].file}.webp`;
@@ -90,8 +104,9 @@ export function createCinematicStory() {
     if (enabled && !frame && !document.hidden) frame = requestAnimationFrame(tick);
   }
 
-  function seek(index, progress, now) {
+  function seek(index, now) {
     const video = videos[index], state = states[index];
+    if (!state.visible || !enabled || document.hidden) return;
     if (!video.hasAttribute('src')) load(index);
     // Seeking normally drops readyState to HAVE_METADATA; that is not a load failure.
     if (video.seeking) {
@@ -105,10 +120,11 @@ export function createCinematicStory() {
       return;
     }
     state.waitingSince = null;
-    state.target = Math.min(Math.max(0, video.duration - 1 / 24), progress * video.duration);
-    if (Math.abs(video.currentTime - state.target) > 1 / 30) {
+    const time = frameTime(state.target, video.duration);
+    if (state.requested !== time) {
       state.seekAt = now;
-      try { video.currentTime = state.target; } catch { staticMode('seek-error'); }
+      state.requested = time;
+      try { video.currentTime = time; } catch { staticMode('seek-error'); }
     } else if (!state.shown) {
       state.shown = true;
       cards[index].classList.add('has-frame');
@@ -120,18 +136,23 @@ export function createCinematicStory() {
     const visible = new Set(state.layers.map(layer => layer.index));
     cards.forEach((card, index) => {
       const layer = state.layers.find(item => item.index === index);
-      card.style.opacity = layer ? layer.opacity : 0;
-      card.style.pointerEvents = index === state.active ? 'auto' : 'none';
-      // Keep narrative text in the accessibility tree; only hidden controls are inert.
-      card.querySelectorAll('a').forEach(link => { link.inert = index !== state.active; });
+      setStyle(card, 'opacity', layer ? layer.opacity : 0);
+      setStyle(card, 'pointerEvents', index === state.active ? 'auto' : 'none');
+      states[index].visible = !!layer;
       if (index < state.active - 1 || index > state.active + 1) unload(index);
     });
     for (const layer of state.layers) {
-      seek(layer.index, layer.progress, now);
+      // Overwrite the destination even while decoding. Never queue old positions.
+      states[layer.index].target = layer.progress;
+      seek(layer.index, now);
       if (!enabled) return;
     }
     // Metadata for the second scene initially; one full scene ahead near its boundary.
-    if (state.active < 4) load(state.active + 1, state.local > .45 ? 'auto' : 'metadata');
+    const ahead = state.active + direction;
+    if (ahead >= 0 && ahead < videos.length) {
+      const approaching = direction > 0 ? state.local > .3 : state.local < .7;
+      load(ahead, approaching ? 'auto' : 'metadata');
+    }
     copies.forEach((copy, index) => {
       let alpha = 0;
       if (visible.has(index)) {
@@ -140,34 +161,36 @@ export function createCinematicStory() {
         else if (index === 4) alpha = smooth((p - .91) / .07);
         else alpha = smooth((p - .10) / .13) * (1 - smooth((p - .73) / .16));
       }
-      copy.style.opacity = alpha;
-      copy.style.pointerEvents = alpha < .95 ? 'none' : 'auto';
-      copy.querySelectorAll('a').forEach(link => { link.inert = alpha < .95; });
+      setStyle(copy, 'opacity', alpha);
+      setStyle(copy, 'pointerEvents', alpha < .95 ? 'none' : 'auto');
+      links[index].forEach(link => { if (link.inert !== (alpha < .95)) link.inert = alpha < .95; });
     });
     const craftProgress = state.layers.find(layer => layer.index === 2)?.progress ?? -1;
     const stepIndex = craftProgress < .38 ? 0 : craftProgress < .65 ? 1 : 2;
-    steps.forEach((step, index) => { step.style.opacity = index === stepIndex ? 1 : 0; });
-    status.textContent = `0${state.active + 1} / 05`;
-    progressBar.style.transform = `scaleX(${current})`;
-    stage.style.setProperty('--exit', state.exit);
+    steps.forEach((step, index) => setStyle(step, 'opacity', index === stepIndex ? 1 : 0));
+    if (state.active !== lastActive) { status.textContent = `0${state.active + 1} / 05`; lastActive = state.active; }
+    setStyle(progressBar, 'transform', `scaleX(${current})`);
+    if (stage.style.getPropertyValue('--exit') !== String(state.exit)) stage.style.setProperty('--exit', state.exit);
   }
 
   function tick(now) {
     frame = 0;
     if (!enabled || document.hidden) return;
-    const bounds = section.getBoundingClientRect();
-    if (bounds.bottom <= 0 || bounds.top >= innerHeight) {
+    // Read the native scroll position in this frame: no second animation clock,
+    // exponential catch-up or one-frame-old ScrollTrigger progress on touch devices.
+    const scroll = window.scrollY;
+    target = clamp((scroll - scrollStart) / Math.max(1, scrollEnd - scrollStart));
+    if (target !== current) direction = target > current ? 1 : -1;
+    current = target;
+    if (scroll >= scrollEnd + stageHeight || scroll + innerHeight <= scrollStart) {
       videos.forEach((_, index) => unload(index));
       current = target;
       return;
     }
-    const dt = Math.min(64, now - (lastTime || now - 16)); lastTime = now;
-    current += (target - current) * (1 - Math.exp(-dt / (mobile ? 90 : 120)));
-    if (Math.abs(current - target) < .00005) current = target;
     render(now);
     // No permanent decode/render loop once the playhead settles or the section leaves view.
     const busy = mapStory(current).layers.some(({ index }) => videos[index].seeking || videos[index].readyState < 2);
-    if (enabled && (current !== target || busy)) wake();
+    if (enabled && busy) wake();
   }
 
   function start() {
@@ -196,9 +219,13 @@ export function createCinematicStory() {
         document.querySelector('#header').classList.toggle('over-cinema', self.isActive);
         if (self.isActive) wake();
       },
-      onRefresh(self) { target = self.progress; current = target; wake(); },
+      onRefresh(self) {
+        scrollStart = self.start; scrollEnd = self.end; stageHeight = stage.offsetHeight;
+        target = self.progress; current = target; wake();
+      },
     });
     target = current = trigger.progress;
+    scrollStart = trigger.start; scrollEnd = trigger.end; stageHeight = stage.offsetHeight;
     load(mapStory(current).active);
     if (current === 0) load(1, 'metadata');
     wake();
@@ -215,6 +242,13 @@ export function createCinematicStory() {
       states[index].seekAt = 0;
       states[index].shown = true;
       cards[index].classList.add('has-frame');
+      const latest = mapStory(clamp((window.scrollY - scrollStart) / Math.max(1, scrollEnd - scrollStart)));
+      const layer = latest.layers.find(layer => layer.index === index);
+      states[index].visible = !!layer;
+      if (layer) states[index].target = layer.progress;
+      // The decoder just became available. Take the newest destination immediately,
+      // without waiting an extra display frame or replaying intermediate seeks.
+      seek(index, performance.now());
       wake();
     });
     video.addEventListener('error', () => { if (enabled && video.hasAttribute('src')) staticMode('video-error'); });
@@ -231,9 +265,10 @@ export function createCinematicStory() {
   }
   reduced.addEventListener('change', preferenceChanged);
   connection?.addEventListener('change', preferenceChanged);
+  window.addEventListener('scroll', wake, { passive: true });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) { cancelAnimationFrame(frame); frame = 0; }
-    else { lastTime = 0; wake(); }
+    else wake();
   });
   window.addEventListener('pageshow', () => {
     window.ScrollTrigger?.update();

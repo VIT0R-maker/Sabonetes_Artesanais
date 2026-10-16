@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, statSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { SCENES, mapStory } from '../assets/cinematic.js';
+import { SCENES, mapStory, frameTime } from '../assets/cinematic.js';
 import { createStaticServer } from './serve.mjs';
 
 test('scroll mapping: reversible, bounded, maximum two videos, final hold', () => {
@@ -49,6 +49,20 @@ test('media exists, has faststart and no accidental source videos', () => {
     assert.doesNotMatch(attributes, /\b(?:src|autoplay|loop|controls)=?/);
     assert.match(attributes, /aria-hidden="true"/);
     assert.match(attributes, /playsinline/);
+  }
+});
+
+test('seek targets are frame-aligned and never reach the end-of-file boundary', () => {
+  for (const duration of [10, 10.416667]) {
+    let previous = -1;
+    for (let step = 0; step <= 1000; step++) {
+      const time = frameTime(step / 1000, duration);
+      assert.ok(time >= previous && time < duration);
+      assert.ok(Math.abs((time * 24 - .25) - Math.round(time * 24 - .25)) < .000001);
+      previous = time;
+    }
+    assert.equal(frameTime(-1, duration), frameTime(0, duration));
+    assert.equal(frameTime(2, duration), frameTime(1, duration));
   }
 });
 

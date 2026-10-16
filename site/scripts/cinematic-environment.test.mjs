@@ -1,16 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createCinematicStory } from '../assets/cinematic.js';
+import { createCinematicStory, frameTime } from '../assets/cinematic.js';
 
 // A controllable media environment exercises failure paths that browser viewport
 // emulation cannot provide (Save-Data, stalled seeks and media decode errors).
-function environment({ reduced = false, saveData = false } = {}) {
+function environment({ reduced = false, saveData = false, mobile = false } = {}) {
   const restore = [], queue = new Map();
   let sequence = 0, options, trigger, clock = 0;
   function element() {
     const attributes = new Map(), classes = new Set(), events = new Map();
     return {
-      style: { removeProperty(name) { delete this[name]; }, setProperty(name, value) { this[name] = value; } },
+      style: { removeProperty(name) { delete this[name]; }, setProperty(name, value) { this[name] = String(value); }, getPropertyValue(name) { return this[name] || ''; } },
       classList: { add: name => classes.add(name), remove: name => classes.delete(name), contains: name => classes.has(name), toggle: (name, value) => value ? classes.add(name) : classes.delete(name) },
       dataset: {}, links: [], inert: false,
       addEventListener(name, callback) { events.set(name, callback); },
@@ -40,23 +40,25 @@ function environment({ reduced = false, saveData = false } = {}) {
     querySelector: selector => selector === 'video' ? video : selector === 'img' ? element() : copies[index],
   }));
   const steps = [element(), element(), element()];
-  const mode = element(), stage = element(), header = element();
+  const mode = element(), stage = Object.assign(element(), { offsetHeight: 900 }), header = element();
   const poster = { decode: () => Promise.resolve() };
   const section = Object.assign(element(), {
-    getBoundingClientRect: () => ({ top: 0, bottom: 6200 }),
+    offsetHeight: 7200,
+    getBoundingClientRect: () => ({ top: -window.scrollY, bottom: 7200 - window.scrollY }),
     querySelector: selector => ({ '.cinematic-stage': stage, '.cinematic-mode': mode, '#hero-image': poster }[selector] || element()),
     querySelectorAll: selector => selector === '.cinematic-scene' ? cards : steps,
   });
   const ScrollTrigger = { create(config) {
     options = config;
-    trigger = { isActive: true, progress: 0, kill() {}, refresh() {} };
+    trigger = { isActive: true, progress: 0, start: 0, end: 6300, kill() {}, refresh() {} };
     return trigger;
   }, refresh() {} };
   const globals = {
     document: { hidden: false, querySelector: selector => selector === '#header' ? header : section, addEventListener() {} },
-    window: { ScrollTrigger, addEventListener() {} },
+    window: { ...element(), scrollY: 0, ScrollTrigger },
     navigator: { connection: { saveData, addEventListener() {} } },
-    matchMedia: query => ({ matches: query.includes('reduce') && reduced, addEventListener() {} }),
+    matchMedia: query => ({ matches: query.includes('reduce') ? reduced : mobile, addEventListener() {} }),
+    performance: { now: () => clock },
     requestAnimationFrame: callback => { queue.set(++sequence, callback); return sequence; },
     cancelAnimationFrame: id => queue.delete(id),
     innerHeight: 900,
@@ -67,12 +69,47 @@ function environment({ reduced = false, saveData = false } = {}) {
   }
   return {
     videos, section, copies, mode,
-    update(progress) { trigger.progress = progress; options.onUpdate(trigger); },
+    update(progress) { window.scrollY = progress * 6300; trigger.progress = progress; options.onUpdate(trigger); },
+    nativeScroll(progress) { window.scrollY = progress * 6300; window.emit('scroll'); },
     tick(delta = 100) { clock += delta; const callbacks = [...queue.values()]; queue.clear(); callbacks.forEach(callback => callback(clock)); },
     finishSeeks() { videos.forEach(video => { if (video.seeking) { video.seeking = false; video.emit('seeked'); } }); },
     restore() { for (const [key, descriptor] of restore) { if (descriptor) Object.defineProperty(globalThis, key, descriptor); else delete globalThis[key]; } },
   };
 }
+
+for (const mobile of [false, true]) {
+  test(`${mobile ? 'mobile' : 'desktop'}: native input reaches its exact frame on the first animation tick`, () => {
+    const env = environment({ mobile });
+    try {
+      createCinematicStory();
+      // No ScrollTrigger onUpdate: the browser's latest scroll is already enough.
+      env.nativeScroll(.1); env.tick(16);
+      assert.equal(env.videos[0].currentTime, frameTime(.5, 10));
+      env.finishSeeks();
+      const seeks = env.videos[0].seeks;
+      for (let i = 0; i < 30; i++) env.tick(16);
+      assert.equal(env.videos[0].seeks, seeks, 'No catch-up motion after the gesture stops');
+      env.nativeScroll(.02); env.tick(16);
+      assert.equal(env.videos[0].currentTime, frameTime(.1, 10), 'Reversal has no easing tail');
+    } finally { env.restore(); }
+  });
+}
+
+test('a busy decoder takes only the newest destination immediately after seeked', () => {
+  const env = environment({ mobile: true });
+  try {
+    createCinematicStory(); env.nativeScroll(.05); env.tick(16);
+    const initial = env.videos[0].seeks;
+    env.nativeScroll(.1); env.tick(16);
+    env.nativeScroll(.15); env.tick(16);
+    assert.equal(env.videos[0].seeks, initial);
+    // An input can arrive between animation frames and the seek completion.
+    env.nativeScroll(.03);
+    env.finishSeeks();
+    assert.equal(env.videos[0].seeks, initial + 1);
+    assert.equal(env.videos[0].currentTime, frameTime(.15, 10));
+  } finally { env.restore(); }
+});
 
 for (const preference of ['reduced', 'saveData']) {
   test(`${preference}: zero video sources, all HTML actions available`, async () => {
